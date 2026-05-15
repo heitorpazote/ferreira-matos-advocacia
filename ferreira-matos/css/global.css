@@ -1,0 +1,338 @@
+/* global.css */
+
+/* ─── GRAIN TEXTURE (SVG filter) ─── */
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+}
+
+/* ─── BASE ─── */
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: var(--cor-fundo);
+  color: var(--cor-texto);
+  font-family: var(--font-body);
+  font-weight: 400;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* ─── EFEITO CURSOR DINÂMICO (Aura e Faíscas) ─── */
+#dynamic-aura {
+  position: fixed;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(201, 168, 76, 0.12) 0%, transparent 65%);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 5; /* Atrás de elementos interativos para permitir sobreposição */
+  opacity: 1;
+  mix-blend-mode: screen;
+  will-change: left, top;
+}
+
+.gold-spark {
+  position: fixed;
+  pointer-events: none;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff 0%, var(--cor-primaria-soft) 30%, var(--cor-primaria) 70%, transparent 100%);
+  box-shadow: 0 0 12px 1px rgba(201, 168, 76, 0.4);
+  z-index: 6;
+  mix-blend-mode: screen;
+  animation: dissolve-spark var(--anim-duration) cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+@keyframes dissolve-spark {
+  0% { 
+    opacity: 0.8; 
+    transform: scale(1) translate(0, 0) rotate(0deg); 
+  }
+  100% { 
+    opacity: 0; 
+    transform: scale(0) translate(var(--tx), var(--ty)) rotate(var(--rot)); 
+  }
+}
+
+@media (hover: none) { #dynamic-aura { display: none; } }
+
+/* ─── SCROLL ANIMATIONS ─── */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s var(--ease-smooth), transform 0.7s var(--ease-smooth);
+}
+.reveal.revealed { opacity: 1; transform: translateY(0); }
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: opacity 0.7s var(--ease-smooth), transform 0.7s var(--ease-smooth);
+}
+.reveal-left.revealed { opacity: 1; transform: translateX(0); }
+
+.reveal-right {
+  opacity: 0;
+  transform: translateX(40px);
+  transition: opacity 0.7s var(--ease-smooth), transform 0.7s var(--ease-smooth);
+}
+.reveal-right.revealed { opacity: 1; transform: translateX(0); }
+
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.96);
+  transition: opacity 0.7s var(--ease-smooth), transform 0.7s var(--ease-smooth);
+}
+.reveal-scale.revealed { opacity: 1; transform: scale(1); }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .reveal-left, .reveal-right, .reveal-scale {
+    opacity: 1; transform: none; transition: none;
+  }
+}
+
+/* ─── TIPOGRAFIA ─── */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--cor-texto);
+}
+
+.heading-display {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(42px, 6vw, 80px);
+  line-height: 1.05;
+}
+.heading-section {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(32px, 4vw, 52px);
+  line-height: 1.1;
+}
+.heading-subtitle {
+  font-family: var(--font-subtitle);
+  font-weight: 500;
+  font-size: clamp(18px, 2.5vw, 24px);
+  line-height: 1.6;
+  color: var(--cor-texto-muted);
+}
+.text-gold { color: var(--cor-primaria); }
+.text-gold-italic { color: var(--cor-primaria); font-style: italic; }
+.text-muted { color: var(--cor-texto-muted); }
+
+.label-section {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--cor-primaria);
+  display: block;
+  margin-bottom: 12px;
+}
+
+/* ─── BOTÕES ─── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border-radius: var(--radius-md);
+  padding: 14px 28px;
+  transition: all 0.2s var(--ease-smooth);
+  cursor: pointer;
+  white-space: nowrap;
+  min-height: 44px;
+}
+.btn-primary {
+  background: var(--cor-primaria);
+  color: #0A0A0F;
+  border: 1px solid var(--cor-primaria);
+}
+.btn-primary:hover {
+  background: var(--cor-primaria-soft);
+  border-color: var(--cor-primaria-soft);
+  transform: translateY(-2px);
+  box-shadow: 0 0 24px rgba(201,168,76,0.4);
+}
+.btn-primary:active { transform: translateY(0); box-shadow: none; }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--cor-primaria);
+  border: 1px solid var(--cor-primaria);
+}
+.btn-ghost:hover {
+  background: rgba(201,168,76,0.08);
+  transform: translateY(-2px);
+}
+.btn-ghost:active { transform: translateY(0); }
+
+.btn-whatsapp {
+  background: #25D366;
+  color: #fff;
+  border: 1px solid #25D366;
+}
+.btn-whatsapp:hover {
+  background: #1ebe5d;
+  transform: translateY(-2px);
+  box-shadow: 0 0 24px rgba(37,211,102,0.35);
+}
+.btn-whatsapp svg { animation: none; }
+.btn-whatsapp:hover svg { animation: pulse-icon 0.5s ease; }
+
+@keyframes pulse-icon {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+/* ─── LINHA ORNAMENTAL ─── */
+.ornamental-line {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 16px 0 0;
+  justify-content: center;
+}
+.ornamental-line::before,
+.ornamental-line::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  max-width: 60px;
+  background: var(--cor-primaria);
+  opacity: 0.5;
+}
+.ornamental-diamond {
+  width: 6px; height: 6px;
+  background: var(--cor-primaria);
+  transform: rotate(45deg);
+  flex-shrink: 0;
+}
+
+/* ─── SEPARADOR DOURADO ─── */
+.gold-divider {
+  width: 80px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--cor-primaria), transparent);
+  margin: 16px auto 0;
+}
+
+/* ─── CONTAINER ─── */
+.container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ─── SECTION PADDING ─── */
+.section { padding: 96px 0; }
+.section-sm { padding: 56px 0; }
+
+/* ─── PAGE LOADER ─── */
+#page-loader {
+  position: fixed;
+  inset: 0;
+  background: var(--cor-fundo);
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+#page-loader.loaded { opacity: 0; visibility: hidden; }
+.loader-logo {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--cor-primaria);
+  letter-spacing: 0.05em;
+}
+.loader-bar-track {
+  width: 200px;
+  height: 1px;
+  background: var(--cor-divisor);
+  position: relative;
+  overflow: hidden;
+}
+.loader-bar {
+  position: absolute;
+  top: 0; left: 0;
+  height: 100%;
+  background: var(--cor-primaria);
+  width: 0%;
+  transition: width 1.2s var(--ease-smooth);
+}
+
+/* ─── WHATSAPP FLOATING ─── */
+.whatsapp-float {
+  position: fixed;
+  bottom: 32px; right: 32px;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+.whatsapp-float.visible { opacity: 1; transform: translateY(0); }
+
+.whatsapp-float-btn {
+  width: 56px; height: 56px;
+  background: #25D366;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+}
+.whatsapp-float-btn:hover { transform: scale(1.08); box-shadow: 0 6px 28px rgba(0,0,0,0.4); }
+.whatsapp-float-btn::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 2px solid rgba(201,168,76,0.5);
+  animation: pulse-ring 2s ease infinite;
+}
+@keyframes pulse-ring {
+  0% { transform: scale(1); opacity: 0.8; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+.whatsapp-tooltip {
+  background: var(--cor-card);
+  border: 1px solid var(--cor-divisor);
+  color: var(--cor-texto);
+  font-family: var(--font-body);
+  font-size: 13px;
+  padding: 8px 14px;
+  border-radius: var(--radius-md);
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateX(10px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  pointer-events: none;
+}
+.whatsapp-float:hover .whatsapp-tooltip { opacity: 1; transform: translateX(0); }

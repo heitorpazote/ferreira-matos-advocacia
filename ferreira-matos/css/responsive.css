@@ -1,0 +1,70 @@
+/* responsive.css */
+
+/* ── 1440px+ ── */
+@media (min-width: 1440px) {
+  .container { max-width: 1360px; }
+}
+
+/* ── < 1024px → tablet/mobile ── */
+@media (max-width: 1024px) {
+  .nav-menu { display: none; }
+  .nav-cta { display: none; }
+  .hamburger { display: flex; }
+
+  .hero-inner { grid-template-columns: 1fr; gap: 0; }
+  .hero-visual { display: none; }
+  .hero-stats { gap: 0; }
+  .stat-item { padding: 0 20px; }
+
+  .why-grid { grid-template-columns: 1fr; gap: 48px; }
+  .why-quote-card { position: static; margin-top: 24px; max-width: 100%; }
+
+  .contact-grid { grid-template-columns: 1fr; gap: 48px; }
+  .form-card { padding: 32px 28px; }
+
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+  .footer-grid > *:last-child { grid-column: 1 / -1; }
+}
+
+/* ── < 768px → mobile ── */
+@media (max-width: 768px) {
+  .section { padding: 64px 0; }
+  .section-sm { padding: 40px 0; }
+
+  .hero-title { font-size: clamp(32px, 8vw, 52px); }
+  .hero-subtitle { font-size: 17px; }
+  .hero-buttons { flex-direction: column; align-items: flex-start; }
+  .hero-stats { flex-wrap: wrap; gap: 16px; }
+  .stat-divider { display: none; }
+  .stat-item { padding: 0; width: 45%; }
+  .stat-num { font-size: 28px; }
+
+  .cards-grid { grid-template-columns: 1fr; }
+
+  .process-steps { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .process-steps::before { display: none; }
+
+  .card-testimonial { flex: 0 0 85vw; }
+
+  .metrics-grid { flex-wrap: wrap; justify-content: center; gap: 32px; }
+  .metric-divider { display: none; }
+  .metric-item { width: 45%; padding: 0; }
+
+  .urgency-inner { flex-direction: column; height: auto; padding: 20px 0; text-align: center; gap: 8px; }
+
+  .footer-grid { grid-template-columns: 1fr; }
+  .footer-grid > *:last-child { grid-column: auto; }
+  .footer-bottom { flex-direction: column; text-align: center; }
+  .footer-bottom-links { justify-content: center; }
+
+  .whatsapp-float { bottom: 20px; right: 20px; }
+}
+
+/* ── < 480px ── */
+@media (max-width: 480px) {
+  .container { padding: 0 16px; }
+  .process-steps { grid-template-columns: 1fr; }
+  .card-testimonial { flex: 0 0 92vw; }
+  .metric-item { width: 100%; }
+  .btn { padding: 12px 20px; font-size: 12px; }
+}

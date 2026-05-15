@@ -1,0 +1,45 @@
+/* variables.css */
+:root {
+  /* Paleta Principal */
+  --cor-fundo:         #0A0A0F;
+  --cor-primaria:      #C9A84C;
+  --cor-primaria-soft: #E8C97A;
+  --cor-acento:        #1C2B4A;
+  --cor-acento-medio:  #2E4A7A;
+  --cor-texto:         #F0EDE6;
+  --cor-texto-muted:   #9A9485;
+  --cor-divisor:       #2A2A35;
+  --cor-sucesso:       #4CAF7C;
+  --cor-card:          #111118;
+  --cor-fundo-alt:     #0D0D18;
+
+  /* Tipografia */
+  --font-display:  'Playfair Display', Georgia, serif;
+  --font-subtitle: 'Cormorant Garamond', Georgia, serif;
+  --font-body:     'DM Sans', system-ui, sans-serif;
+
+  /* Espaçamentos */
+  --space-xs:  4px;
+  --space-sm:  8px;
+  --space-md:  16px;
+  --space-lg:  24px;
+  --space-xl:  40px;
+  --space-2xl: 64px;
+  --space-3xl: 96px;
+
+  /* Border Radius — sharp, 0-4px máximo */
+  --radius-sm:  2px;
+  --radius-md:  4px;
+  --radius-lg:  8px;
+
+  /* Easing */
+  --ease-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Navbar */
+  --navbar-height: 72px;
+}
+
+@media (max-width: 768px) {
+  :root { --navbar-height: 60px; }
+}
