@@ -56,7 +56,7 @@ if (processSection) {
 }
 
 /* ── PARALLAX (hero image) ── */
-if (window.matchMedia('(prefers-reduced-motion: no-preference)').matches) {
+if (window.matchMedia('(prefers-reduced-motion: no-preference) and (min-width: 1025px)').matches) {
   const heroImg = document.querySelector('.hero-visual');
   if (heroImg) {
     window.addEventListener('scroll', () => {
